@@ -2,8 +2,6 @@
 
 Thanks for looking at the checklist. The repository is [llm-redteam-banking-checklist](https://github.com/ErcinDedeoglu/llm-redteam-banking-checklist). The maintainer is [Ercin Dedeoglu](https://ercin.info).
 
-Views are my own.
-
 ## Ground rules
 
 This is a defender's tool. It scores findings a team has already recorded. It does not generate tests, call a model, or store what you type.

@@ -8,9 +8,7 @@ The rules come from [LLM Red Teaming for Banking: A UAE Go-Live Checklist](https
 
 Educational tool, not regulatory or legal advice. No attack prompts. No model calls. Nothing you score is uploaded.
 
-Views are my own.
-
-**Ercin Dedeoglu**, AI/Software Architect, Dubai. [ercin.info](https://ercin.info)
+**Ercin Dedeoglu**, AI Architect. [ercin.info](https://ercin.info)
 
 ## 60-second quickstart
 
@@ -235,4 +233,4 @@ pytest
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Apache License 2.0, see [LICENSE](LICENSE). If you use the package, see [CITATION.cff](CITATION.cff).
 
-Built by [Ercin Dedeoglu](https://ercin.info). Views are my own.
+Built by [Ercin Dedeoglu](https://ercin.info).
