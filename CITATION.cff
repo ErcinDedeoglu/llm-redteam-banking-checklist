@@ -6,7 +6,6 @@ authors:
   - family-names: Dedeoglu
     given-names: Ercin
     orcid: "https://orcid.org/0009-0004-0792-5310"
-    affiliation: "AI/Software Architect, Dubai"
     website: "https://ercin.info"
 abstract: >-
   Defender-side go-live gate for banking LLM red-team findings.
@@ -14,7 +13,7 @@ abstract: >-
   process exits non-zero when a gate is red.
 license: Apache-2.0
 version: "0.1.0"
-date-released: "2026-10-22"
+date-released: "2026-10-21"
 keywords:
   - llm-red-teaming
   - banking
