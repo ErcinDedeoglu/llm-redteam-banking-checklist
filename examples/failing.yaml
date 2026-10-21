@@ -1,0 +1,54 @@
+# Synthetic pack that is not ready for go-live. Same fictional assistant, no
+# customer data, no prompts, no model output.
+# Red gates on purpose:
+#   1. F-201 is an open critical finding.
+#   2. F-202 has no fix, no compensating control, and no named owner.
+# Coverage, the kill switch, and monitoring stay green, so the CLI names those
+# two gates and exits 1.
+system_name: Harborline Collections Assistant (synthetic)
+languages_served:
+  - Arabic
+  - English
+kill_switch_tested: true
+time_to_disable: "4 min, recorded in the change-window log"
+monitored_categories: [C1, C2, C3, C4, C5, C6, C7, C8, C9]
+checklist_done: [1, 2, 4, 5, 7, 8]
+changes_since_last_run: []
+findings:
+  - ref: F-201
+    category: C3
+    severity: Critical
+    multi_turn: "Yes"
+    language: English
+    human_reviewed: true
+    fixed: false
+    compensating_control: false
+    owner: Data protection lead
+  - ref: F-202
+    category: C7
+    severity: High
+    multi_turn: "Yes"
+    language: Arabic
+    human_reviewed: true
+    fixed: false
+    compensating_control: false
+    owner: ""
+  - ref: F-203
+    category: C9
+    severity: Low
+    multi_turn: "No"
+    language: English
+    human_reviewed: false
+    fixed: true
+    compensating_control: false
+    owner: ""
+coverage:
+  C1: {Arabic: {single: true, multi: true}, English: {single: true, multi: true}}
+  C2: {Arabic: {single: true, multi: true}, English: {single: true, multi: true}}
+  C3: {Arabic: {single: true, multi: true}, English: {single: true, multi: true}}
+  C4: {Arabic: {single: true, multi: true}, English: {single: true, multi: true}}
+  C5: {Arabic: {single: true, multi: true}, English: {single: true, multi: true}}
+  C6: {Arabic: {single: true, multi: true}, English: {single: true, multi: true}}
+  C7: {Arabic: {single: true, multi: true}, English: {single: true, multi: true}}
+  C8: {Arabic: {single: true, multi: true}, English: {single: true, multi: true}}
+  C9: {Arabic: {single: true, multi: true}, English: {single: true, multi: true}}

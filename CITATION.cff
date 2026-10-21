@@ -1,0 +1,23 @@
+cff-version: "1.2.0"
+title: "llm-redteam-banking-checklist"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Dedeoglu
+    given-names: Ercin
+    affiliation: "AI/Software Architect, Dubai"
+    website: "https://ercin.info"
+abstract: >-
+  Defender-side go-live gate for banking LLM red-team findings.
+  The same evaluate() function runs in pytest and in CI, and the
+  process exits non-zero when a gate is red.
+license: Apache-2.0
+version: "0.1.0"
+date-released: "2026-10-20"
+keywords:
+  - llm-red-teaming
+  - banking
+  - owasp-llm-top-10
+  - ai-security
+url: "https://github.com/ErcinDedeoglu/llm-redteam-banking-checklist"
+repository-code: "https://github.com/ErcinDedeoglu/llm-redteam-banking-checklist"

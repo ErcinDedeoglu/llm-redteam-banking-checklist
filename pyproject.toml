@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-redteam-banking-checklist"
+version = "0.1.0"
+description = "Go-live gate for banking LLM red-team findings. Fails the release when a gate is red."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+  { name = "Ercin Dedeoglu" },
+]
+keywords = [
+  "llm-red-teaming",
+  "banking",
+  "owasp",
+  "ai-security",
+  "go-live",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Financial and Insurance Industry",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security",
+  "Typing :: Typed",
+]
+dependencies = [
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ErcinDedeoglu/llm-redteam-banking-checklist"
+Repository = "https://github.com/ErcinDedeoglu/llm-redteam-banking-checklist"
+Documentation = "https://huggingface.co/blog/Ercin/llm-red-teaming-banking-uae"
+"Hugging Face Space" = "https://huggingface.co/spaces/Ercin/llm-red-teaming-banking-severity-scorer"
+Author = "https://ercin.info"
+
+[project.scripts]
+llm-redteam-gate = "llm_redteam_banking.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+llm_redteam_banking = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]

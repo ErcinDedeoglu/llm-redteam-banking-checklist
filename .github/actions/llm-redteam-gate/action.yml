@@ -1,0 +1,44 @@
+name: LLM red-team banking gate
+description: Install the checklist and fail the job when a go-live gate is red.
+author: Ercin Dedeoglu
+branding:
+  icon: shield
+  color: blue
+
+inputs:
+  findings:
+    description: Path to a findings JSON or YAML file.
+    required: true
+  evidence-pack:
+    description: Where to write the markdown evidence pack.
+    required: false
+    default: evidence-pack.md
+  package:
+    description: Pip requirement. Use ".[dev]" in this repository. Use llm-redteam-banking-checklist once the package is published.
+    required: false
+    default: llm-redteam-banking-checklist
+  python-version:
+    description: Python version to set up before installing.
+    required: false
+    default: "3.12"
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v7
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install the checklist
+      shell: bash
+      env:
+        GATE_PACKAGE: ${{ inputs.package }}
+      run: python -m pip install --disable-pip-version-check "$GATE_PACKAGE"
+
+    - name: Fail the release when a gate is red
+      shell: bash
+      env:
+        GATE_FINDINGS: ${{ inputs.findings }}
+        GATE_EVIDENCE: ${{ inputs.evidence-pack }}
+      run: python -m llm_redteam_banking "$GATE_FINDINGS" --evidence-pack "$GATE_EVIDENCE"

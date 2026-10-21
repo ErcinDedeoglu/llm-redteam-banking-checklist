@@ -1,0 +1,12 @@
+.venv/
+/uploads/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.coverage
+htmlcov/
+evidence-pack.md
+*-evidence.md

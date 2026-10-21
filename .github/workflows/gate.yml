@@ -1,0 +1,96 @@
+# Tests, then the same CLI a releasing repository runs.
+# A red gate fails this workflow. The passing example must stay green.
+name: Go-live gate
+
+"on":
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-gate:
+    name: pytest and example gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install the checklist
+        run: python -m pip install --disable-pip-version-check -e ".[dev]"
+
+      - name: Run the pytest gate
+        run: python -m pytest
+
+      - name: Passing example stays green
+        run: python -m llm_redteam_banking examples/passing.yaml --evidence-pack passing-evidence.md
+
+      - name: Failing example turns a gate red
+        run: |
+          set +e
+          python -m llm_redteam_banking examples/failing.yaml --evidence-pack failing-evidence.md
+          status=$?
+          set -e
+          if [ "$status" -ne 1 ]; then
+            echo "expected exit code 1 when a gate is red, got ${status}"
+            exit 1
+          fi
+          grep -F "Critical findings: zero open at go-live" failing-evidence.md
+          grep -F "High findings: each has a fix or compensating control and a named owner" failing-evidence.md
+          grep -F "| FAIL |" failing-evidence.md
+          grep -F "| PASS |" failing-evidence.md
+
+      - name: Upload evidence packs
+        uses: actions/upload-artifact@v7
+        with:
+          name: evidence-packs
+          path: |
+            passing-evidence.md
+            failing-evidence.md
+          if-no-files-found: error
+
+  reusable-passing-gate:
+    name: Reusable workflow on the passing example
+    uses: ./.github/workflows/reusable-gate.yml
+    with:
+      findings: examples/passing.yaml
+      evidence-pack: passing-evidence.md
+      package: ".[dev]"
+      python-version: "3.12"
+
+  composite-failing-gate:
+    name: Composite action on the failing example
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Run the gate
+        id: gate
+        uses: ./.github/actions/llm-redteam-gate
+        continue-on-error: true
+        with:
+          findings: examples/failing.yaml
+          evidence-pack: failing-evidence.md
+          package: ".[dev]"
+          python-version: "3.12"
+
+      - name: Require a red gate
+        env:
+          GATE_OUTCOME: ${{ steps.gate.outcome }}
+        run: |
+          if [ "$GATE_OUTCOME" != "failure" ]; then
+            echo "examples/failing.yaml must turn a gate red (outcome: ${GATE_OUTCOME})"
+            exit 1
+          fi
+          test -s failing-evidence.md
+          grep -F "Critical findings: zero open at go-live" failing-evidence.md
+          grep -F "| FAIL |" failing-evidence.md
+          grep -F "| PASS |" failing-evidence.md

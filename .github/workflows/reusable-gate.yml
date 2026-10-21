@@ -1,0 +1,60 @@
+# Copy this file into a releasing repository, or call it from this one.
+# It checks out the caller, installs the checklist, and fails the job when a gate is red.
+name: Reusable go-live gate
+
+"on":
+  workflow_call:
+    inputs:
+      findings:
+        description: Path to the findings JSON or YAML file, relative to the repository root.
+        required: true
+        type: string
+      evidence-pack:
+        description: Where to write the markdown evidence pack.
+        required: false
+        type: string
+        default: evidence-pack.md
+      python-version:
+        description: Python version to set up.
+        required: false
+        type: string
+        default: "3.12"
+      package:
+        description: Pip requirement. Use ".[dev]" in this repository. Use llm-redteam-banking-checklist once the package is published.
+        required: false
+        type: string
+        default: llm-redteam-banking-checklist
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    name: Go-live gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install the checklist
+        env:
+          GATE_PACKAGE: ${{ inputs.package }}
+        run: python -m pip install --disable-pip-version-check "$GATE_PACKAGE"
+
+      - name: Fail the release when a gate is red
+        env:
+          GATE_FINDINGS: ${{ inputs.findings }}
+          GATE_EVIDENCE: ${{ inputs.evidence-pack }}
+        run: python -m llm_redteam_banking "$GATE_FINDINGS" --evidence-pack "$GATE_EVIDENCE"
+
+      - name: Upload the evidence pack
+        uses: actions/upload-artifact@v7
+        with:
+          name: evidence-pack
+          path: ${{ inputs.evidence-pack }}
+          if-no-files-found: error
