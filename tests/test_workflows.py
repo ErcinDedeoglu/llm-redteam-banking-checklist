@@ -65,6 +65,7 @@ def test_release_workflow_publishes_only_on_release_with_oidc():
     assert "twine check" in build
     publish = workflow["jobs"]["publish"]
     assert publish["needs"] == "build"
+    assert publish["if"] == "vars.PYPI_PUBLISH == 'true'"
     assert publish["permissions"] == {"id-token": "write"}
     assert publish["environment"]["name"] == "pypi"
     uses = [step.get("uses", "") for step in publish["steps"]]

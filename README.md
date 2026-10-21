@@ -40,7 +40,13 @@ red gates:
 
 Both commands write `evidence-pack.md`. The examples are fictional. Category, severity, and ownership only.
 
-Once this package is published, the install line in another project is:
+Install the tagged release straight from GitHub:
+
+```bash
+pip install "git+https://github.com/ErcinDedeoglu/llm-redteam-banking-checklist@v0.1.0"
+```
+
+Once the package is on PyPI, the install line is:
 
 ```bash
 pip install llm-redteam-banking-checklist
