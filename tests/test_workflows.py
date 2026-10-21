@@ -54,3 +54,18 @@ def test_composite_action_invokes_the_same_gate():
     script = action["runs"]["steps"][-1]["run"]
     assert "llm_redteam_banking" in script
     assert "--evidence-pack" in script
+
+
+def test_release_workflow_publishes_only_on_release_with_oidc():
+    workflow = _load(".github/workflows/release.yml")
+    assert workflow["on"]["release"]["types"] == ["published"]
+    assert workflow["permissions"] == {"contents": "read"}
+    build = "\n".join(step.get("run", "") for step in workflow["jobs"]["build"]["steps"])
+    assert "python -m pytest" in build
+    assert "twine check" in build
+    publish = workflow["jobs"]["publish"]
+    assert publish["needs"] == "build"
+    assert publish["permissions"] == {"id-token": "write"}
+    assert publish["environment"]["name"] == "pypi"
+    uses = [step.get("uses", "") for step in publish["steps"]]
+    assert any(u.startswith("pypa/gh-action-pypi-publish@") for u in uses)
