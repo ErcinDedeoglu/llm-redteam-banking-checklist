@@ -1,6 +1,8 @@
 # Publishes a tagged release to PyPI with Trusted Publishing (OIDC).
 # No API token is stored in this repository.
 # Runs only when a GitHub release is published.
+# The PyPI upload is off until the repository variable PYPI_PUBLISH is set to "true".
+# Zenodo archives each published release on its own through the GitHub integration.
 name: Release to PyPI
 
 "on":
@@ -48,6 +50,7 @@ jobs:
   publish:
     name: Publish to PyPI
     needs: build
+    if: vars.PYPI_PUBLISH == 'true'
     runs-on: ubuntu-latest
     environment:
       name: pypi
