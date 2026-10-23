@@ -231,6 +231,6 @@ pip install -e ".[dev]"
 pytest
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Apache License 2.0, see [LICENSE](LICENSE). If you use the package, see [CITATION.cff](CITATION.cff).
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Apache License 2.0, see [LICENSE](LICENSE). If you use the package, see [CITATION.cff](CITATION.cff).
 
 Built by [Ercin Dedeoglu](https://ercin.info).
