@@ -71,6 +71,28 @@ JSON uses the same fields as YAML. Quote `Yes` and `No` in YAML (`multi_turn: "Y
 
 The article verdict can be `NO-GO` while the five gates are green. An incomplete checklist does it. A re-test trigger does it. That verdict is printed and stored in the evidence pack. The process exit code follows the five gates.
 
+## Agent Skill (skills.sh)
+
+Install this checklist as an Agent Skill for Cursor, Claude Code, Codex, and other agents that support the [Agent Skills](https://agentskills.io) / [`skills` CLI](https://github.com/vercel-labs/skills) format:
+
+```bash
+npx skills add ErcinDedeoglu/llm-redteam-banking-checklist --skill llm-redteam-banking
+```
+
+Or:
+
+```bash
+npx skills add ErcinDedeoglu/llm-redteam-banking-checklist
+```
+
+Skill source: [`skills/llm-redteam-banking/SKILL.md`](skills/llm-redteam-banking/SKILL.md).
+
+[![skills.sh](https://skills.sh/b/ErcinDedeoglu/llm-redteam-banking-checklist)](https://skills.sh/ErcinDedeoglu/llm-redteam-banking-checklist)
+
+Instruction-only. Defensive go-live review workflow. No attack prompts, no payloads, no model calls from the skill itself. The skill points agents at this repo's categories, gates, and CLI — the same rules as the [Hugging Face Space](https://huggingface.co/spaces/Ercin/llm-red-teaming-banking-severity-scorer).
+
+Requires Node.js 22.20 or later for `npx skills`. Listing on [skills.sh](https://www.skills.sh/) appears from install telemetry after people run `npx skills add`; there is no separate registry submit step.
+
 ## How the CI gate works
 
 [`.github/workflows/gate.yml`](.github/workflows/gate.yml) does three things on every push and pull request:
