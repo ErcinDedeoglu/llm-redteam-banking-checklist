@@ -1,0 +1,45 @@
+name: New finding category
+description: Ask to add a harm category the checklist does not already score.
+title: "Category: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The checklist already scores C1–C9. See the OWASP LLM Top 10 (2025) table in the README. Name the harm class. Do not paste attack text, customer data, or live model output.
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Short name for the category.
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What harm this category records.
+    validations:
+      required: true
+  - type: textarea
+    id: owasp
+    attributes:
+      label: OWASP LLM Top 10 mapping
+      description: The 2025 code when one applies, for example LLM01. Write "none" when it does not.
+      placeholder: "none"
+    validations:
+      required: true
+  - type: textarea
+    id: banking
+    attributes:
+      label: Why this is banking-relevant
+      description: Why a banking go-live review would record this harm separately from C1–C9.
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This request has no attack prompts, customer data, or live model output.
+          required: true

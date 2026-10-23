@@ -1,0 +1,54 @@
+name: Bug report
+description: The gate, the loader, the evidence pack, or the tests did something wrong.
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Put a one-line summary in the title. Synthetic findings only. No customer data, no live model output, and no attack prompts. A finding ref is a ticket id.
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: Commands, the findings file shape, and what you ran. Category, severity, and ownership only.
+      placeholder: |
+        python -m llm_redteam_banking examples/passing.yaml --evidence-pack evidence-pack.md
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+      description: The exit code, gate name, or evidence-pack line you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+      description: The exit code, gate name, or evidence-pack line you got. Paste the error text.
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python
+      description: Output of `python --version`. This package needs Python 3.10 or newer.
+      placeholder: "3.12.3"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Ubuntu 24.04"
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This report has no attack prompts, customer data, or live model output.
+          required: true
