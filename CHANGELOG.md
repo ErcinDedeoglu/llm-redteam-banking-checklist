@@ -5,6 +5,7 @@ All notable changes to this project are listed here. The format follows [Keep a 
 ## [Unreleased]
 
 ### Added
+- Go-live gate pytest job runs on Python 3.10, 3.11, 3.12 and 3.13, the package declares the 3.13 classifier, and the README shows the Go-live gate status badge (2026-11-05).
 - This changelog, so each change to the gate, the categories and the skill has a dated entry.
 - Defender-side `llm-redteam-banking` Agent Skill under `skills/`, with the `skills` CLI install documented in the README (#5, 2026-10-23).
 - Issue forms, a pull request checklist and the Contributor Covenant 2.1 code of conduct (#4, 2026-10-23).

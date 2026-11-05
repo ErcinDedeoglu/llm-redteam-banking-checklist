@@ -1,5 +1,7 @@
 # llm-redteam-banking-checklist
 
+[![Go-live gate](https://github.com/ErcinDedeoglu/llm-redteam-banking-checklist/actions/workflows/gate.yml/badge.svg)](https://github.com/ErcinDedeoglu/llm-redteam-banking-checklist/actions/workflows/gate.yml)
+
 Look. A green demo is not a green release.
 
 This is a defender-side gate for **LLM red teaming in banking**. You record findings by harm category and severity. The same `evaluate()` function that runs in the [Hugging Face Space](https://huggingface.co/spaces/Ercin/llm-red-teaming-banking-severity-scorer) runs in pytest and in CI. A red gate fails the process. You still get the markdown evidence pack.
